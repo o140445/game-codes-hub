@@ -25,7 +25,7 @@
         'large' => 'text-sm'
     ];
 
-    // 处理不同的数据结构
+    // Handle different data structures
     $gameName = $game['name'] ?? $game->name ?? 'Unknown Game';
     $gameSlug = $game['slug'] ?? $game->slug ?? '';
     $gameImage = $game['image'] ?? $game->image ?? '/images/default-game.jpg';
@@ -39,7 +39,7 @@
    class="bg-gray-900 rounded-lg shadow-lg {{ $sizeClasses[$size] }} flex {{ $size === 'small' ? 'gap-2 sm:gap-3' : 'flex-col' }} transition-all duration-200 hover:scale-105 hover:shadow-xl group cursor-pointer border border-gray-700">
 
     @if($size === 'small')
-        <!-- 小卡片布局：横向排列 -->
+        <!-- Small card layout: horizontal arrangement -->
         <img src="{{ asset($gameImage) }}"
              class="rounded {{ $imageClasses[$size] }} object-cover"
              alt="{{ $gameSlug }}">
@@ -59,7 +59,7 @@
             </div>
         </div>
     @else
-        <!-- 默认/大卡片布局：纵向排列 -->
+        <!-- Default/large card layout: vertical arrangement -->
         <img src="{{ asset($gameImage) }}"
              class="rounded mb-2 object-cover {{ $imageClasses[$size] }} transition-all duration-200 group-hover:brightness-110"
              alt="{{ $gameSlug }}">

@@ -1,7 +1,6 @@
 <!-- 页脚 -->
 <footer class="bg-gray-900 text-gray-300 mt-12 py-8">
     <div class="max-w-6xl mx-auto px-4 gap-2">
-        <!-- 第一排：版权和链接 -->
         <div class="flex flex-col md:flex-row justify-between items-center mb-6">
 
 
@@ -42,7 +41,6 @@
             </div>
         </div>
 
-        <!-- 第二排：社交媒体图标 -->
         <div class="flex justify-center">
             <div class="text-sm text-gray-400 mb-4 md:mb-0">
                 &copy; 2025 GameCodesHub. All rights reserved.
