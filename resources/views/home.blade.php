@@ -41,11 +41,11 @@
             <!-- Main Card -->
             <div class="md:col-span-2 bg-gray-900 rounded-lg shadow-lg p-3 sm:p-4 flex flex-col md:flex-row gap-3 sm:gap-4
             transition-all duration-200 hover:scale-105 hover:shadow-xl group cursor-pointer border border-gray-700 relative">
-                <a href="{{ route('games.show', $data['first']['slug']) }}" class="w-full md:h-96 h-48">
-                    <img src="{{ asset($data['first']['image']) }}" alt="{{ $data['first']['slug'] }}" class="rounded-lg w-full h-full object-fill">
+                <a href="{{ route('games.show', $data['first']['slug']) }}" class="w-full h-full ">
+                    <img src="{{ asset($data['first']['image']) }}" alt="{{ $data['first']['slug'] }}" class="rounded-lg w-full h-full object-cover">
                 </a>
                 <!-- 悬浮在图片上 左下角 -->
-                <div class="absolute bottom-5 left-5 flex items-center justify-center">
+                <div class="absolute bottom-8 left-5 flex items-center justify-center">
                     <h1 class=" text-3xl sm:text-2xl font-bold mb-2 transition-colors duration-200 group-hover:text-yellow-400 text-white">{{ $data['first']['name'] }}</h1>
                 </div>
 
