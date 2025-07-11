@@ -94,7 +94,7 @@ class GameService
             $date = date('F Y',  strtotime($game->updated_at));
 
             return [
-                'name' => $game->name . '(' . $date . ')',
+                'name' => $game->name . ' (' . $date . ')',
                 'slug' => $game->slug,
                 'image' => 'storage/'.$game->image ,
                 'summary' => $game->summary,

@@ -146,10 +146,6 @@ class GamesResource extends Resource
                     })
                     ->badge()
                     ,
-                Tables\Columns\TextColumn::make('codes_total')
-                    ->label('总数'),
-                Tables\Columns\TextColumn::make('codes_valid')
-                    ->label('有效'),
                 Tables\Columns\ToggleColumn::make('is_recommended')
                     ->label('推荐'),
                 Tables\Columns\ToggleColumn::make('is_special_recommend')

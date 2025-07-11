@@ -12,12 +12,12 @@
         <link rel="canonical" href="{{ url()->current() }}">
     @endif
 
-
+    @yield('structured_data')
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="//unpkg.com/alpinejs" defer></script>
 </head>
-<body class="bg-gray-800 min-h-screen">
+<body class="bg-gray-50 min-h-screen">
     @include('components.navbar')
     <main class="pt-20">
         @yield('content')

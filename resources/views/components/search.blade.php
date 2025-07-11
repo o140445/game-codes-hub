@@ -1,20 +1,17 @@
 
-<form action="/games" method="GET" class="mb-4 w-full">
-    <div class="flex w-full shadow-lg rounded-lg overflow-hidden bg-gray-900 border border-gray-700">
-        <span class="flex items-center px-3 text-gray-400">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <circle cx="11" cy="11" r="8" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
-        </span>
-        <input
-            type="text"
-            name="search"
-            placeholder="Search All Games"
-            class="flex-1 px-4 py-3 text-base bg-gray-900 text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
-        >
-        <button type="submit" class="bg-yellow-400 text-gray-900 px-6 py-3 font-semibold hover:bg-yellow-300 transition-all duration-200">
-            Go
+<form method="GET" action="{{ route('games.index') }}" class="space-y-6">
+    <!-- Search Bar -->
+    <div class="flex gap-4">
+        <div class="flex-1">
+            <input type="text"
+                   name="search"
+                   value="{{ request('search') }}"
+                   placeholder="Search games..."
+                   class="w-full px-4 py-3 rounded-lg border border-gray-300 bg-white text-gray-800 placeholder-gray-500 focus:border-gray-400 focus:bg-white focus:outline-none transition">
+        </div>
+        <button type="submit"
+                class="px-6 py-3 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-700 transition-colors">
+            Search
         </button>
     </div>
 </form>

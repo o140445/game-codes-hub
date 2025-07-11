@@ -36,7 +36,7 @@
 @endphp
 
 <a href="{{ route('games.show', $gameSlug) }}"
-   class="bg-gray-900 rounded-lg shadow-lg {{ $sizeClasses[$size] }} flex {{ $size === 'small' ? 'gap-2 sm:gap-3' : 'flex-col' }} transition-all duration-200 hover:scale-105 hover:shadow-xl group cursor-pointer border border-gray-700">
+   class="bg-white rounded-lg shadow-lg {{ $sizeClasses[$size] }} flex {{ $size === 'small' ? 'gap-2 sm:gap-3' : 'flex-col' }} transition-all duration-200 hover:scale-105 hover:shadow-xl group cursor-pointer border border-gray-200">
 
     @if($size === 'small')
         <!-- Small card layout: horizontal arrangement -->
@@ -44,7 +44,7 @@
              class="rounded {{ $imageClasses[$size] }} object-cover"
              alt="{{ $gameSlug }}">
         <div class="flex-1 flex flex-col justify-between pb-2">
-            <h4 class="font-semibold {{ $titleClasses[$size] }} mb-1 transition-colors duration-200 group-hover:text-yellow-400 text-gray-200">
+            <h4 class="font-semibold {{ $titleClasses[$size] }} mb-1 transition-colors duration-200 group-hover:text-gray-800 text-gray-700">
                 {{ $gameName }}
             </h4>
             <div class="text-xs text-gray-500 flex items-center gap-1 sm:gap-2">
@@ -63,10 +63,10 @@
         <img src="{{ asset($gameImage) }}"
              class="rounded mb-2 object-cover {{ $imageClasses[$size] }} transition-all duration-200 group-hover:brightness-110"
              alt="{{ $gameSlug }}">
-        <h4 class="font-semibold mb-1 transition-colors duration-200 group-hover:text-yellow-400 text-gray-200 {{ $titleClasses[$size] }} line-clamp-1">
+        <h4 class="font-semibold mb-1 transition-colors duration-200 group-hover:text-gray-800 text-gray-700 {{ $titleClasses[$size] }} line-clamp-1">
             {{ $gameName }}
         </h4>
-        <p class="{{ $contentClasses[$size] }} text-gray-400 mb-2 line-clamp-3">{{ $gameContent }}</p>
+        <p class="{{ $contentClasses[$size] }} text-gray-600 mb-2 line-clamp-3">{{ $gameContent }}</p>
         <div class="flex items-center text-xs text-gray-500 gap-2 mt-auto">
             <span>By {{ $gameAuthor }}</span>
             <span>{{ is_string($gameDate) ? $gameDate : $gameDate->format('M d, Y') }}</span>

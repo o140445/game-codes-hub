@@ -57,9 +57,9 @@ class GameController extends Controller
 
     public function show($slug)
     {
-        $key = 'game_detail_' . $slug;
-        $cachedGame = cache()->get($key);
-        if (!$cachedGame) {
+//        $key = 'game_detail_' . $slug;
+//        $cachedGame = cache()->get($key);
+//        if (!$cachedGame) {
             $game = Games::with(['codes' => function($query) {
                 $query->where('status', 1)->orderByDesc('is_latest')->orderByDesc('created_at');
             }])->where('slug', $slug)->where('status', 1)->firstOrFail();
@@ -74,11 +74,9 @@ class GameController extends Controller
 
 
             // Cache the game details for 10 minutes
-            cache()->put($key, $game, 60 * 10);
+//            cache()->put($key, $game, 60 * 10);
 
-        }else{
-            $game = $cachedGame;
-        }
+//        }
 
 
         $related_key = 'related_games_' . $game->id;
@@ -100,13 +98,19 @@ class GameController extends Controller
             cache()->put($related_key, $relatedGames, 60 * 60 * 10);
         }
 
+        // 判断兑换码总数
+//        var_dump($game->total_codes);die;
+        $game->codes_total = $game->codes()->count();
+        $game->codes_valid = $game->codes()->where('status', 1)->count();
+
         // Increment views count
         $updated = Games::where('id', $game->id)->increment('views', 1);
         if ($updated) {
             // Update the cache with the new views count
             $game->views += 1;
-            cache()->put($key, $game, 60 * 60 * 10); // Cache for 24 hours
+//            cache()->put($key, $game, 60 * 60 * 10); // Cache for 24 hours
         }
+
 
         return view('games.show', compact('game', 'relatedGames'));
     }
