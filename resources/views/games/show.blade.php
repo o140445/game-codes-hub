@@ -1,33 +1,36 @@
 @extends('layouts.app')
 
 @section('seo_title', $game->name . ' - GameCodesHub')
-@section('seo_description', $game->description )
+@section('seo_description', $game->description . ' Updated July 2025 – unlock your power now!' )
 @section('seo_keywords', $game->name . ', game codes, gaming')
 @section('seo_canonical', url('/' . $game->slug))
 
 @section('structured_data')
-    @verbatim
+        @php
+            $json = [
+                '@context' => 'https://schema.org',
+                '@type' => 'Game',
+                'name' => $game->name,
+                'description' => $game->description . ' Updated July 2025 – unlock your power now!',
+                'url' => route('games.show', $game->slug),
+                'image' => $game->image ? asset('storage/'.$game->image) : 'https://gamecodeshub.com/og/gag.jpeg',
+                'author' => [
+                    '@type' => 'Person',
+                    'name' => $game->author ?? 'GameCodesHub'
+                ],
+                'datePublished' => $game->created_at->toISOString(),
+                'publisher' => [
+                    '@type' => 'Organization',
+                    'name' => 'GameCodesHub',
+                    'url' => 'https://gamecodeshub.com/'
+                ]
+            ];
+            $json = json_encode($json, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        @endphp
+
         <script type="application/ld+json">
-            {
-              "@context": "https://schema.org",
-              "@type": "Game",
-              "name": "{{ $game->title }}",
-              "description": "{{ $game->description . ' Updated July 2025 – unlock your power now!' ?? Str::limit(strip_tags($game->content), 160) }}",
-              "url": "{{ route('games.show', $game->id) }}",
-              "image": "{{ $game->image ? asset('storage/'.$game->image) : 'https://gamecodeshub.com/og/gag.jpeg' }}",
-              "author": {
-                "@type": "Person",
-                "name": "{{ $game->author ?? 'GameCodesHub' }}"
-              },
-              "datePublished": "{{ $game->created_at->toISOString() }}",
-              "publisher": {
-                "@type": "Organization",
-                "name": "GameCodesHub",
-                "url": "https://gamecodeshub.com/"
-              }
-            }
+            {!! $json !!}
         </script>
-    @endverbatim
 @endsection
 
 @section('content')

@@ -6,32 +6,35 @@
 @section('seo_canonical', url('/contact'))
 
 @section('structured_data')
-    @verbatim
-        <script type="application/ld+json">
-        {
-          "@context": "https://schema.org",
-          "@type": "ContactPage",
-          "name": "Contact GameCodesHub",
-          "description": "Have a question, suggestion, or business inquiry? Contact GameCodesHub.",
-          "url": "{{ url('/contact') }}",
-          "publisher": {
-            "@type": "Organization",
-            "name": "GameCodesHub",
-            "url": "https://amecodeshub.com/"
-          },
-          "mainEntity": {
-            "@type": "Organization",
-            "name": "GameCodesHub",
-            "url": "https://gamecodeshub.com/",
-            "contactPoint": {
-              "@type": "ContactPoint",
-              "contactType": "customer service",
-              "email": "support@gamecodeshub.com"
-            }
-          }
-        }
-        </script>
-    @endverbatim
+    @php
+        $json = [
+            '@context' => 'https://schema.org',
+            '@type' => 'ContactPage',
+            'name' => 'Contact GameCodesHub',
+            'description' => 'Have a question, suggestion, or business inquiry? Contact GameCodesHub.',
+            'url' => url('/contact'),
+            'publisher' => [
+                '@type' => 'Organization',
+                'name' => 'GameCodesHub',
+                'url' => 'https://gamecodeshub.com/',
+            ],
+            'mainEntity' => [
+                '@type' => 'Organization',
+                'name' => 'GameCodesHub',
+                'url' => 'https://gamecodeshub.com/',
+                'contactPoint' => [
+                    '@type' => 'ContactPoint',
+                    'contactType' => 'customer service',
+                    'email' => 'support@gamecodeshub.com'
+                ]
+            ]
+        ];
+        $json = json_encode($json, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    @endphp
+
+    <script type="application/ld+json">
+        {!! $json !!}
+    </script>
 @endsection
 
 @section('content')
@@ -68,28 +71,28 @@
                 @csrf
                 <div>
                     <label class="block text-gray-700 font-semibold mb-2">Your Name *</label>
-                    <input type="text" name="name" value="{{ old('name') }}" class="w-full px-4 py-2 rounded border border-gray-300 bg-white text-gray-800 focus:border-gray-400 focus:bg-white focus:outline-none transition @error('name') border-red-500 @enderror" required />
+                    <input type="text" name="name" value="{{ old('name') }}" class="w-full px-4 py-2 rounded border border-gray-300 bg-white text-gray-800 focus:border-gray-400 focus:bg-white focus:outline-none transition @error('name')  @enderror" required />
                     @error('name')
                         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
                 <div>
                     <label class="block text-gray-700 font-semibold mb-2">Email *</label>
-                    <input type="email" name="email" value="{{ old('email') }}" class="w-full px-4 py-2 rounded border border-gray-300 bg-white text-gray-800 focus:border-gray-400 focus:bg-white focus:outline-none transition @error('email') border-red-500 @enderror" required />
+                    <input type="email" name="email" value="{{ old('email') }}" class="w-full px-4 py-2 rounded border border-gray-300 bg-white text-gray-800 focus:border-gray-400 focus:bg-white focus:outline-none transition @error('email')  @enderror" required />
                     @error('email')
                         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
                 <div>
                     <label class="block text-gray-700 font-semibold mb-2">Subject *</label>
-                    <input type="text" name="subject" value="{{ old('subject') }}" class="w-full px-4 py-2 rounded border border-gray-300 bg-white text-gray-800 focus:border-gray-400 focus:bg-white focus:outline-none transition @error('subject') border-red-500 @enderror" required />
+                    <input type="text" name="subject" value="{{ old('subject') }}" class="w-full px-4 py-2 rounded border border-gray-300 bg-white text-gray-800 focus:border-gray-400 focus:bg-white focus:outline-none transition @error('subject') @enderror" required />
                     @error('subject')
                         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
                 <div>
                     <label class="block text-gray-700 font-semibold mb-2">Message *</label>
-                    <textarea name="message" rows="5" class="w-full px-4 py-2 rounded border border-gray-300 bg-white text-gray-800 focus:border-gray-400 focus:bg-white focus:outline-none transition @error('message') border-red-500 @enderror" required>{{ old('message') }}</textarea>
+                    <textarea name="message" rows="5" class="w-full px-4 py-2 rounded border border-gray-300 bg-white text-gray-800 focus:border-gray-400 focus:bg-white focus:outline-none transition @error('message')  @enderror" required>{{ old('message') }}</textarea>
                     @error('message')
                         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                     @enderror

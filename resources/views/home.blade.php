@@ -6,23 +6,26 @@
 @section('seo_canonical', url('/'))
 
 @section('structured_data')
-    @verbatim
-        <script type="application/ld+json">
-            {
-              "@context": "https://schema.org",
-              "@type": "WebSite",
-              "name": "GameCodesHub",
-              "url": "https://gamecodeshub.com/",
-              "description": "GameCodesHub shares daily updated redeem codes for Roblox and mobile games including Da Hood, Grow a Garden, and Anime Saga.",
-              "inLanguage": "en",
-              "publisher": {
-                "@type": "Organization",
-                "name": "GameCodesHub",
-                "url": "https://gamecodeshub.com/"
-              }
-            }
-        </script>
-    @endverbatim
+    @php
+        $json = [
+            '@context' => 'https://schema.org',
+            '@type' => 'WebSite',
+            'name' => 'GameCodesHub',
+            'url' => 'https://gamecodeshub.com/',
+            'description' => 'GameCodesHub shares daily updated redeem codes for Roblox and mobile games including Da Hood, Grow a Garden, and Anime Saga.',
+            'inLanguage' => 'en',
+            'publisher' => [
+                '@type' => 'Organization',
+                'name' => 'GameCodesHub',
+                'url' => 'https://gamecodeshub.com/',
+            ],
+        ];
+        $json = json_encode($json, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    @endphp
+
+    <script type="application/ld+json">
+        {!! $json !!}
+    </script>
 @endsection
 
 

@@ -9,28 +9,32 @@
 @section('seo_canonical', url('/privacy-policy'))
 
 @section('structured_data')
-    @verbatim
-        <script type="application/ld+json">
-        {
-          "@context": "https://schema.org",
-          "@type": "WebPage",
-          "name": "Privacy Policy",
-          "description": "Read the privacy policy for GameCodes Hub. Learn how we protect your data and privacy.",
-          "url": "{{ url('/privacy-policy') }}",
-          "publisher": {
-            "@type": "Organization",
-            "name": "GameCodesHub",
-            "url": "https://gamecodeshub.com/"
-          },
-          "dateModified": "{{ date('Y-m-d\TH:i:s\Z') }}",
-          "mainEntity": {
-            "@type": "WebPage",
-            "name": "Privacy Policy",
-            "description": "Privacy policy for GameCodesHub website"
-          }
-        }
-        </script>
-    @endverbatim
+    @php
+        $json = [
+            '@context' => 'https://schema.org',
+            '@type' => 'WebPage',
+            'name' => 'Privacy Policy',
+            'description' => 'Read the privacy policy for GameCodes Hub. Learn how we protect your data and privacy.',
+            'url' => url('/privacy-policy'),
+            'publisher' => [
+                '@type' => 'Organization',
+                'name' => 'GameCodesHub',
+                'url' => 'https://gamecodeshub.com/'
+            ],
+            'dateModified' => date('Y-m-d\TH:i:s\Z'),
+            'mainEntity' => [
+                '@type' => 'WebPage',
+                'name' => 'Privacy Policy',
+                'description' => 'Privacy policy for GameCodesHub website'
+            ]
+        ];
+        $json = json_encode($json, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    @endphp
+
+    <script type="application/ld+json">
+        {!! $json !!}
+    </script>
+
 @endsection
 
 @section('content')

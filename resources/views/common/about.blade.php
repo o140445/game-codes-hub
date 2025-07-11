@@ -6,29 +6,32 @@
 @section('seo_canonical', url('/about'))
 
 @section('structured_data')
-    @verbatim
-        <script type="application/ld+json">
-        {
-          "@context": "https://schema.org",
-          "@type": "AboutPage",
-          "name": "About GameCodesHub",
-          "description": "Your ultimate destination for the latest and most reliable game codes, helping gamers unlock exclusive rewards and bonuses.",
-          "url": "{{ url('/about') }}",
-          "publisher": {
-            "@type": "Organization",
-            "name": "GameCodesHub",
-            "url": "https://amecodeshub.com/",
-            "description": "GameCodesHub shares daily updated redeem codes for Roblox and mobile games including Da Hood, Grow a Garden, and Anime Saga."
-          },
-          "mainEntity": {
-            "@type": "Organization",
-            "name": "GameCodesHub",
-            "url": "https://amecodeshub.com/",
-            "description": "Your ultimate destination for the latest and most reliable game codes, helping gamers unlock exclusive rewards and bonuses."
-          }
-        }
-        </script>
-    @endverbatim
+    @php
+        $json = [
+            '@context' => 'https://schema.org',
+            '@type' => 'AboutPage',
+            'name' => 'About GameCodesHub',
+            'description' => 'Your ultimate destination for the latest and most reliable game codes, helping gamers unlock exclusive rewards and bonuses.',
+            'url' => url('/about'),
+            'publisher' => [
+                '@type' => 'Organization',
+                'name' => 'GameCodesHub',
+                'url' => 'https://gamecodeshub.com/',
+                'description' => 'GameCodesHub shares daily updated redeem codes for Roblox and mobile games including Da Hood, Grow a Garden, and Anime Saga.'
+            ],
+            'mainEntity' => [
+                '@type' => 'Organization',
+                'name' => 'GameCodesHub',
+                'url' => 'https://gamecodeshub.com/',
+                'description' => 'Your ultimate destination for the latest and most reliable game codes, helping gamers unlock exclusive rewards and bonuses.'
+            ]
+        ];
+        $json = json_encode($json, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    @endphp
+
+    <script type="application/ld+json">
+        {!! $json !!}
+    </script>
 @endsection
 
 @section('content')

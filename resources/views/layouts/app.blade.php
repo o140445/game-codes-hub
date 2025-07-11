@@ -12,6 +12,16 @@
         <link rel="canonical" href="{{ url()->current() }}">
     @endif
 
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MYBLH7NDEX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-MYBLH7NDEX');
+    </script>
+
     @yield('structured_data')
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])

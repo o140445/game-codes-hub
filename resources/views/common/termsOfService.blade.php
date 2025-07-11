@@ -10,28 +10,31 @@
 @section('seo_canonical', url('/terms-of-service'))
 
 @section('structured_data')
-<script type="application/ld+json">
-    @verbatim
-        {
-          "@context": "https://schema.org",
-          "@type": "WebPage",
-          "name": "Terms of Service",
-          "description": "Read the terms of service for using GameCodes Hub. Learn about your rights and responsibilities when using our platform.",
-          "url": "{{ url('/terms-of-service') }}",
-          "publisher": {
-            "@type": "Organization",
-            "name": "GameCodesHub",
-            "url": "https://gamecodeshub.com/"
-          },
-          "dateModified": "{{ date('Y-m-d\TH:i:s\Z') }}",
-          "mainEntity": {
-            "@type": "WebPage",
-            "name": "Terms of Service",
-            "description": "Terms of service for GameCodesHub website"
-          }
-        }
-    @endverbatim
-</script>
+    @php
+        $json = [
+            '@context' => 'https://schema.org',
+            '@type' => 'WebPage',
+            'name' => 'Terms of Service',
+            'description' => 'Read the terms of service for using GameCodes Hub. Learn about your rights and responsibilities when using our platform.',
+            'url' => url('/terms-of-service'),
+            'publisher' => [
+                '@type' => 'Organization',
+                'name' => 'GameCodesHub',
+                'url' => 'https://gamecodeshub.com/'
+            ],
+            'dateModified' => date('Y-m-d\TH:i:s\Z'),
+            'mainEntity' => [
+                '@type' => 'WebPage',
+                'name' => 'Terms of Service',
+                'description' => 'Terms of service for GameCodesHub website'
+            ]
+        ];
+        $json = json_encode($json, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    @endphp
+
+    <script type="application/ld+json">
+        {!! $json !!}
+    </script>
 @endsection
 
 @section('content')

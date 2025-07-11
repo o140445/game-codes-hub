@@ -20,10 +20,8 @@
                 ]
             ];
         });
-    @endphp
 
-    <script type="application/ld+json">
-        {!! json_encode([
+        $json = [
             '@context' => 'https://schema.org',
             '@type' => 'ItemList',
             'name' => 'All Games',
@@ -36,7 +34,12 @@
             ],
             'numberOfItems' => $games->total(),
             'itemListElement' => $items,
-        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
+        ];
+        $json = json_encode($json, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    @endphp
+
+    <script type="application/ld+json">
+        {!! $json !!}
     </script>
 @endsection
 
