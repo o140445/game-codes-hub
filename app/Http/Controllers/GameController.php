@@ -57,12 +57,10 @@ class GameController extends Controller
 
     public function show($slug)
     {
-//        $key = 'game_detail_' . $slug;
-//        $cachedGame = cache()->get($key);
-//        if (!$cachedGame) {
-            $game = Games::with(['codes' => function($query) {
-                $query->where('status', 1)->orderByDesc('is_latest')->orderByDesc('created_at');
-            }])->where('slug', $slug)->where('status', 1)->firstOrFail();
+        $key = 'game_detail_' . $slug;
+        $cachedGame = cache()->get($key);
+        if (!$cachedGame) {
+            $game = Games::where('slug', $slug)->where('status', 1)->firstOrFail();
 
             // 获取无效代码（过期代码）
             $game->invalidCodes = $game->codes()->where('status', 0)->orderByDesc('created_at')->get();
@@ -74,9 +72,11 @@ class GameController extends Controller
 
 
             // Cache the game details for 10 minutes
-//            cache()->put($key, $game, 60 * 10);
+            cache()->put($key, $game, 60 * 10);
 
-//        }
+        }else{
+            $game = $cachedGame;
+        }
 
 
         $related_key = 'related_games_' . $game->id;
@@ -100,8 +100,11 @@ class GameController extends Controller
 
         // 判断兑换码总数
 //        var_dump($game->total_codes);die;
-        $game->codes_total = $game->codes()->count();
-        $game->codes_valid = $game->codes()->where('status', 1)->count();
+        $game->codes = $game->codes()->where('status', 1)->orderByDesc('is_latest')->get();
+        $game->invalidCodes = $game->codes()->where('status', 0)->orderByDesc('created_at')->get();
+
+        $game->codes_total = count($game->codes) + count($game->invalidCodes);
+        $game->codes_valid = count($game->codes);
 
         // Increment views count
         $updated = Games::where('id', $game->id)->increment('views', 1);
