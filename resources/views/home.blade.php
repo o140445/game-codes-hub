@@ -41,7 +41,7 @@
             <!-- Main Card -->
             <div class="md:col-span-2 bg-gray-900 rounded-lg shadow-lg p-3 sm:p-4 flex flex-col md:flex-row gap-3 sm:gap-4
             transition-all duration-200 hover:scale-105 hover:shadow-xl group cursor-pointer border border-gray-700 relative">
-                <a href="{{ route('games.show', $data['first']['slug']) }}" class="w-full h-full ">
+                <a href="{{ route('games.show', $data['first']['slug']) }}" class="w-full  md:h-96 h-56">
                     <img src="{{ asset($data['first']['image']) }}" alt="{{ $data['first']['slug'] }}" class="rounded-lg w-full md:h-96 h-56 object-cover">
                 </a>
                 <!-- 悬浮在图片上 左下角 -->
