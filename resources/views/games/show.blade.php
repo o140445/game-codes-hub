@@ -7,16 +7,17 @@
 
 @section('structured_data')
         @php
+            $author = $game->author ?? 'GameCodesHub';
             $json = [
                 '@context' => 'https://schema.org',
                 '@type' => 'Game',
                 'name' => $game->name,
                 'description' => $game->description . ' Updated July 2025 – unlock your power now!',
                 'url' => route('games.show', $game->slug),
-                'image' => $game->image ? asset('storage/'.$game->image) : 'https://gamecodeshub.com/og/gag.jpeg',
+                'image' => $game->image ? asset($game->image) : 'https://gamecodeshub.com/og/gag.jpeg',
                 'author' => [
                     '@type' => 'Person',
-                    'name' => $game->author ?? 'GameCodesHub'
+                    'name' => $author
                 ],
                 'datePublished' => $game->created_at->toISOString(),
                 'publisher' => [

@@ -79,7 +79,7 @@ class GameService
     public function getLatestGames($limit = 8)
     {
         return Games::where('status', 1)
-            ->orderByDesc('updated_at')
+            ->orderByDesc('created_at')
             ->limit($limit)
             ->get(['id', 'name', 'slug', 'image', 'summary', 'views', 'updated_at']);
     }

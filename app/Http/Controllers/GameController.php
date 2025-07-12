@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Games;
 use App\Services\GameService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GameController extends Controller
 {
@@ -61,16 +62,6 @@ class GameController extends Controller
         $cachedGame = cache()->get($key);
         if (!$cachedGame) {
             $game = Games::where('slug', $slug)->where('status', 1)->firstOrFail();
-
-            // 获取无效代码（过期代码）
-            $game->invalidCodes = $game->codes()->where('status', 0)->orderByDesc('created_at')->get();
-
-            //图片
-            if ($game->image) {
-                $game->image = '/storage/' . $game->image;
-            }
-
-
             // Cache the game details for 10 minutes
             cache()->put($key, $game, 60 * 10);
 
@@ -106,8 +97,18 @@ class GameController extends Controller
         $game->codes_total = count($game->codes) + count($game->invalidCodes);
         $game->codes_valid = count($game->codes);
 
+
+
+        //图片
+        if ($game->image) {
+            $game->image = '/storage/' . $game->image;
+        }
+
+
+
         // Increment views count
-        $updated = Games::where('id', $game->id)->increment('views', 1);
+        $updated = Games::where('id', $game->id)
+            ->update(['views' => $game->views + 1, 'updated_at' =>  DB::raw('updated_at')]);
         if ($updated) {
             // Update the cache with the new views count
             $game->views += 1;
